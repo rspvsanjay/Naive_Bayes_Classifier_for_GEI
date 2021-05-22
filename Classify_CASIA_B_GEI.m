@@ -1,4 +1,4 @@
-path1= 'H:\CASIA_B\CASIA_B090degree_Centered_Alinged_Energy_Image\';
+path1= 'H:\CASIA_B\GEI\';
 list1 = dir(path1);
 fName1 = {list1.name};
 [~,y1] = size(fName1);
@@ -62,5 +62,79 @@ group22=cell(1,1);
 group22{1} = [group22{1},group2{1}];   
 
 disp("Result for nm to nm");
+(accuracy*100)/length(class)
+total = (accuracy*100)/length(class);
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
+
+
+test1= [];
+group2=cell(1,1);
+
+for f_no=3:y1
+    list2 = dir(char(strcat(path1,fName1(f_no),'\')));
+    fName2 = {list2.name};
+    [~,y2] = size(fName2);
+    for ff_no = 3:4
+        group2{1} = [group2{1},f_no-2];
+%         pathh=char(strcat(path1,fName1(f_no),'\',fName2(ff_no)))
+        Image = imread(char(strcat(path1,fName1(f_no),'\',fName2(ff_no))));
+        Img_mean = double(Image(:)')-m;
+        Img_proj = Img_mean*coeff;
+        test_features = Img_proj(:,1:no_components);
+        test1 = [test1; test_features];
+    end
+end
+mat2 = double(test1);
+class = classify(mat2,mat1,group1{1},'diaglinear');
+
+accuracy = 0;
+for number=1:length(class)
+    if class(number)==group2{1}(number)
+        accuracy = accuracy+1;
+    end
+end
+group22=cell(1,1);
+group22{1} = [group22{1},group2{1}];   
+
+disp("Result for bg to nm");
+(accuracy*100)/length(class)
+total = (accuracy*100)/length(class);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+test1= [];
+group2=cell(1,1);
+
+for f_no=3:y1
+    list2 = dir(char(strcat(path1,fName1(f_no),'\')));
+    fName2 = {list2.name};
+    [~,y2] = size(fName2);
+    for ff_no = 5:6
+        group2{1} = [group2{1},f_no-2];
+%         pathh=char(strcat(path1,fName1(f_no),'\',fName2(ff_no)))
+        Image = imread(char(strcat(path1,fName1(f_no),'\',fName2(ff_no))));
+        Img_mean = double(Image(:)')-m;
+        Img_proj = Img_mean*coeff;
+        test_features = Img_proj(:,1:no_components);
+        test1 = [test1; test_features];
+    end
+end
+mat2 = double(test1);
+class = classify(mat2,mat1,group1{1},'diaglinear');
+
+accuracy = 0;
+for number=1:length(class)
+    if class(number)==group2{1}(number)
+        accuracy = accuracy+1;
+    end
+end
+group22=cell(1,1);
+group22{1} = [group22{1},group2{1}];   
+
+disp("Result for cl to nm");
 (accuracy*100)/length(class)
 total = (accuracy*100)/length(class);
